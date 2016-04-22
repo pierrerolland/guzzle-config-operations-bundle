@@ -1,0 +1,6 @@
+services:
+    guzzle_config_operations.factory:
+        class: Guzzle\ConfigOperationsBundle\GuzzleClientFactory
+        public: false
+        calls:
+            - [setContainer, ["@service_container"]]
