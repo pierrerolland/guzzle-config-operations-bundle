@@ -1,0 +1,21 @@
+{
+  "name": "pierrerolland/guzzle-config-operations-bundle",
+  "description": "This bundle allows Symfony projects to add Guzzle operations to their configuration",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pierre Rolland",
+      "email": "roll.pierre@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "symfony/framework-bundle": ">=2.6"
+  },
+  "autoload": {
+    "psr-0": { "Guzzle\\ConfigOperationsBundle": "" }
+  },
+  "target-dir": "Guzzle/ConfigOperationsBundle"
+}
