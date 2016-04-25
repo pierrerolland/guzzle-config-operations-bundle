@@ -49,7 +49,7 @@ A new service will appear, called guzzle_client.[the alias you used]. You can ca
 
 ```php
    // @var AppBundle\Model\Bar $bar
-   $bar = $this->get('guzzle_client.foo')->readBar(1);
+   $bar = $this->get('guzzle_client.foo')->readBar(['barId' => 1]);
 ```
 
 The bundle is still in development, for example it needs some exceptions handling. If you're motivated, don't hesitate to PR :)
