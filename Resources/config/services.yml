@@ -1,6 +1,8 @@
 services:
     guzzle_config_operations.factory:
         class: Guzzle\ConfigOperationsBundle\GuzzleClientFactory
+        arguments:
+            - "@jms_serializer"
         public: false
         calls:
             - [setContainer, ["@service_container"]]

@@ -27,7 +27,7 @@ class ClientCompilerPass implements CompilerPassInterface
         foreach ($taggedServices as $id => $tags) {
             foreach ($tags as $attributes) {
                 $definition = new Definition();
-                $definition->setClass('GuzzleHttp\Command\Guzzle\GuzzleClient');
+                $definition->setClass('Guzzle\ConfigOperationsBundle\GuzzleClient');
                 $definition->setFactory([
                     new Reference('guzzle_config_operations.factory'),
                     'getClient'
