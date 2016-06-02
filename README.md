@@ -4,6 +4,22 @@ This bundle allows Symfony projects to add Guzzle operations to their configurat
 ## Installation
 `composer require pierrerolland/guzzle-config-operations-bundle`
 
+And in your app/AppKernel.php
+```php
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = [
+            // ...
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Guzzle\ConfigOperationsBundle\GuzzleConfigOperationsBundle()
+        ];
+
+        return $bundles;
+    }
+```
+
 ## Usage
 
 ### 1. Define your client
