@@ -1,5 +1,5 @@
 # guzzle-config-operations-bundle
-This bundle allows Symfony projects to add Guzzle operations to their configuration
+This bundle allows Symfony projects to add Guzzle operations to their configuration. It also uses JMS Serializer to directly deserialize responses into objects. All you have to do is define your calls in Yaml, and your model classes to welcome the responses, and you're done !
 
 ## Installation
 `composer require pierrerolland/guzzle-config-operations-bundle`
@@ -48,7 +48,7 @@ guzzle_config_operations:
         readBar:
           httpMethod: "GET"
           uri: "/bar/{barId}"
-          responseClass: AppBundle\Model\Bar
+          responseClass: AppBundle\Model\Bar # The model used to deserialize the response
           parameters:
             barId:
               type: "string"
