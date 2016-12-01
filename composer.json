@@ -13,7 +13,7 @@
   "require": {
     "php": ">=5.4.0",
     "symfony/framework-bundle": ">=2.6",
-    "guzzlehttp/guzzle-services": "^1",
+    "guzzlehttp/guzzle-services": ">=1.0",
     "jms/serializer-bundle": "*"
   },
   "autoload": {
