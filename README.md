@@ -24,42 +24,32 @@ class AppKernel extends Kernel
 
 ### 1. Define your client
 
-```ỳaml
+```yaml
 # services.yml
 
 services:
-  app.client.foo:
-    class: GuzzleHttp\Client
-    tags:
-      - { name: guzzle.client, alias: foo }
+    app.client.foo:
+        class: GuzzleHttp\Client
+        tags:
+            - { name: guzzle.client, alias: foo }
+        config:
+            baseUrl: "http://foo"
+            operations:
+                readBar:
+                    httpMethod: "GET"
+                    uri: "/bar/{barId}"
+                    responseClass: AppBundle\Model\Bar # The model used to deserialize the response
+                    parameters:
+                        barId:
+                            type: "string"
+                            location: "uri"
+                            required: true
+                # other operations here    
+      
 ```
 The tag line is important, and requires both the `name: guzzle.client` and `alias` parts.
 
-### 2. Define your client's configuration, including the operations
-
-```yaml
-# guzzle.yml
-
-guzzle_config_operations:
-  clients:
-    foo:
-      baseUrl: "http://foo"
-      operations:
-        readBar:
-          httpMethod: "GET"
-          uri: "/bar/{barId}"
-          responseClass: AppBundle\Model\Bar # The model used to deserialize the response
-          parameters:
-            barId:
-              type: "string"
-              location: "uri"
-              required: true
-        # other operations here
-```
-
-The operations documentation can be found here for example http://guzzle3.readthedocs.org/webservice-client/guzzle-service-descriptions.html
-
-### 3. Use the client
+### 2. Use the client
 
 A new service will appear, called guzzle_client.[the alias you used]. You can call the operations directly.
 
@@ -69,4 +59,3 @@ A new service will appear, called guzzle_client.[the alias you used]. You can ca
 ```
 
 The bundle is still in development, for example it needs some exceptions handling. If you're motivated, don't hesitate to PR :)
-

@@ -2,6 +2,7 @@
 
 namespace Guzzle\ConfigOperationsBundle;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Command\Guzzle\Description;
 use JMS\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -33,41 +34,36 @@ class GuzzleClientFactory implements ContainerAwareInterface
      * Gets the client
      *
      * @param string $clientId
-     * @param string $alias
      *
      * @return GuzzleClient
      */
-    public function getClient($clientId, $alias)
+    public function getClient($clientId)
     {
-        $descriptions = $this->container->getParameter('guzzle_client_factory.descriptions');
-        if (!isset($descriptions[$alias])) {
-            return null;
-        }
-
-        /* @var \GuzzleHttp\ClientInterface $client */
+        /* @var Client $client */
         $client = $this->container->get($clientId);
-        $responseClasses = $this->extractResponseClasses($descriptions[$alias]);
-        $description = new Description($descriptions[$alias]);
+        $config = $client->getConfig();
+        $responseClasses = $this->extractResponseClasses($config);
+        $description = new Description($config);
 
         return new GuzzleClient($client, $description, $responseClasses, $this->serializer);
     }
 
     /**
-     * @param array $description
+     * @param array $config
      *
      * @return array
      */
-    protected function extractResponseClasses(array &$description)
+    protected function extractResponseClasses(array &$config)
     {
-        if (!array_key_exists('operations', $description)) {
-            return [];
+        if (!array_key_exists('operations', $config)) {
+            return array();
         }
 
-        $responseClasses = [];
-        foreach ($description['operations'] as $operationName => $operation) {
+        $responseClasses = array();
+        foreach ($config['operations'] as $operationName => $operation) {
             if (array_key_exists('responseClass', $operation)) {
                 $responseClasses[$operationName] = $operation['responseClass'];
-                unset($description['operations'][$operationName]['responseClass']);
+                unset($config['operations'][$operationName]['responseClass']);
             }
         }
 
