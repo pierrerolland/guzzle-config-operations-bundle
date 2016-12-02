@@ -32,19 +32,20 @@ services:
         class: GuzzleHttp\Client
         tags:
             - { name: guzzle.client, alias: foo }
-        config:
-            baseUrl: "http://foo"
-            operations:
-                readBar:
-                    httpMethod: "GET"
-                    uri: "/bar/{barId}"
-                    responseClass: AppBundle\Model\Bar # The model used to deserialize the response
-                    parameters:
-                        barId:
-                            type: "string"
-                            location: "uri"
-                            required: true
-                # other operations here    
+        arguments:
+            config:
+                baseUrl: "http://foo"
+                operations:
+                    readBar:
+                        httpMethod: "GET"
+                        uri: "/bar/{barId}"
+                        responseClass: AppBundle\Model\Bar # The model used to deserialize the response
+                        parameters:
+                            barId:
+                                type: "string"
+                                location: "uri"
+                                required: true
+                    # other operations here    
       
 ```
 The tag line is important, and requires both the `name: guzzle.client` and `alias` parts.
