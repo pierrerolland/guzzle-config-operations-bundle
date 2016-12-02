@@ -4,11 +4,11 @@ namespace Guzzle\ConfigOperationsBundle;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Command\CommandInterface;
-use GuzzleHttp\Command\Exception\CommandException;
 use GuzzleHttp\Command\Guzzle\DescriptionInterface;
 use GuzzleHttp\Command\Guzzle\GuzzleClient as BaseGuzzleClient;
-use GuzzleHttp\Ring\Future\FutureInterface;
 use JMS\Serializer\Serializer;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Overloads the original GuzzleClient to add the Serializer
@@ -44,42 +44,20 @@ class GuzzleClient extends BaseGuzzleClient
         DescriptionInterface $description,
         array $responseClasses,
         Serializer $serializer,
-        array $config = []
+        array $config = array()
     ) {
         $this->client = $client;
         $this->responseClasses = $responseClasses;
         $this->serializer = $serializer;
-        parent::__construct($client, $description, $config);
-    }
 
-    public function execute(CommandInterface $command)
-    {
-        $trans = $this->initTransaction($command);
-
-        if ($trans->result !== null) {
-            return $trans->result;
-        }
-
-        try {
-            $trans->response = $this->client->send($trans->request);
-            return $trans->response instanceof FutureInterface
-                ? $this->createFutureResult($trans)
-                : $this
-                    ->serializer
-                    ->deserialize(
-                        $trans->response->getBody()->getContents(),
-                        $this->getResponseClass($command->getName()),
-                        'json'
-                    );
-        } catch (CommandException $e) {
-            throw $e;
-        } catch (\Exception $e) {
-            if ($trans->result !== null) {
-                return $trans->result;
-            }
-            $trans->exception = $e;
-            throw $this->createCommandException($trans);
-        }
+        parent::__construct(
+            $client,
+            $description,
+            null,
+            array($this, 'transformResponse'),
+            null,
+            $config
+        );
     }
 
     /**
@@ -90,5 +68,23 @@ class GuzzleClient extends BaseGuzzleClient
     protected function getResponseClass($name)
     {
         return array_key_exists($name, $this->responseClasses) ? $this->responseClasses[$name] : 'array';
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param RequestInterface $request
+     * @param CommandInterface $command
+     *
+     * @return mixed
+     */
+    public function transformResponse(ResponseInterface $response, RequestInterface $request, CommandInterface $command)
+    {
+        return $this
+            ->serializer
+            ->deserialize(
+                $response->getBody()->getContents(),
+                $this->getResponseClass($command->getName()),
+                'json'
+            );
     }
 }
