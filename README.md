@@ -1,10 +1,10 @@
 # guzzle-config-operations-bundle
-This bundle allows Symfony projects to add Guzzle operations to their configuration. It also uses JMS Serializer to directly deserialize responses into objects. All you have to do is define your calls in Yaml, and your model classes to welcome the responses, and you're done !
+This bundle allows Symfony projects to add Guzzle operations to their configuration. It also uses Symfony's serializer to directly deserialize responses into objects. All you have to do is define your calls in Yaml, and your model classes to welcome the responses, and you're done !
 
 ## Installation
 `composer require pierrerolland/guzzle-config-operations-bundle`
 
-And in your app/AppKernel.php
+In your app/AppKernel.php
 ```php
 class AppKernel extends Kernel
 {
@@ -12,12 +12,17 @@ class AppKernel extends Kernel
     {
         $bundles = [
             // ...
-            new JMS\SerializerBundle\JMSSerializerBundle(),
             new Guzzle\ConfigOperationsBundle\GuzzleConfigOperationsBundle()
         ];
 
         return $bundles;
     }
+```
+
+Activate Symfony serializer in app/config.yml
+```yaml
+framework:
+    serializer:      { enable_annotations: true }
 ```
 
 ## Usage
@@ -59,4 +64,36 @@ A new service will appear, called guzzle_client.[the alias you used]. You can ca
    $bar = $this->get('guzzle_client.foo')->readBar(['barId' => 1]);
 ```
 
-The bundle is still in development, for example it needs some exceptions handling. If you're motivated, don't hesitate to PR :)
+## Objects normalization
+
+This bundle provides a recursive normalizer. Use the Type annotation
+to make the normalizer know which object should be recursively
+populated (suffixed by [] for arrays).
+
+
+```php
+<?php
+// Article.php
+
+namespace AppBundle\Model;
+
+use Guzzle\ConfigOperationsBundle\Normalizer\Annotation as Normalizer;
+
+class Article
+{
+    /**
+     * @var Tag[]
+     *
+     * @Normalizer\Type(name="AppBundle\Model\Tag[]")
+     */
+    private $tags;
+
+    /**
+     * @var Category
+     *
+     * @Normalizer\Type(name="AppBundle\Model\Category")
+     */
+    private $category;
+
+    // ...
+```

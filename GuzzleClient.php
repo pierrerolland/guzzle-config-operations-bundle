@@ -6,9 +6,9 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Guzzle\DescriptionInterface;
 use GuzzleHttp\Command\Guzzle\GuzzleClient as BaseGuzzleClient;
-use JMS\Serializer\Serializer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Overloads the original GuzzleClient to add the Serializer
@@ -20,7 +20,7 @@ class GuzzleClient extends BaseGuzzleClient
     /**
      * @var array
      */
-    protected $responseClasses = array();
+    protected $responseClasses = [];
 
     /**
      * @var ClientInterface
@@ -28,7 +28,7 @@ class GuzzleClient extends BaseGuzzleClient
     protected $client;
 
     /**
-     * @var Serializer
+     * @var SerializerInterface
      */
     protected $serializer;
 
@@ -36,15 +36,15 @@ class GuzzleClient extends BaseGuzzleClient
      * @param ClientInterface $client
      * @param DescriptionInterface $description
      * @param array $responseClasses
-     * @param Serializer $serializer
+     * @param SerializerInterface $serializer
      * @param array $config
      */
     public function __construct(
         ClientInterface $client,
         DescriptionInterface $description,
         array $responseClasses,
-        Serializer $serializer,
-        array $config = array()
+        SerializerInterface $serializer,
+        array $config = []
     ) {
         $this->client = $client;
         $this->responseClasses = $responseClasses;
@@ -54,7 +54,7 @@ class GuzzleClient extends BaseGuzzleClient
             $client,
             $description,
             null,
-            array($this, 'transformResponse'),
+            [$this, 'transformResponse'],
             null,
             $config
         );

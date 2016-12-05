@@ -4,9 +4,9 @@ namespace Guzzle\ConfigOperationsBundle;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\Guzzle\Description;
-use JMS\Serializer\Serializer;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Factory for guzzle clients
@@ -21,11 +21,11 @@ class GuzzleClientFactory implements ContainerAwareInterface
     protected $container;
 
     /**
-     * @var Serializer
+     * @var SerializerInterface
      */
     protected $serializer;
 
-    public function __construct(Serializer $serializer)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
@@ -56,10 +56,10 @@ class GuzzleClientFactory implements ContainerAwareInterface
     protected function extractResponseClasses(array &$config)
     {
         if (!array_key_exists('operations', $config)) {
-            return array();
+            return [];
         }
 
-        $responseClasses = array();
+        $responseClasses = [];
         foreach ($config['operations'] as $operationName => $operation) {
             if (array_key_exists('responseClass', $operation)) {
                 $responseClasses[$operationName] = $operation['responseClass'];

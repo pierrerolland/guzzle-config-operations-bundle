@@ -12,9 +12,9 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "symfony/framework-bundle": ">=2.6",
+    "symfony/framework-bundle": ">=2.7",
     "guzzlehttp/guzzle-services": ">=1.0",
-    "jms/serializer-bundle": "*"
+    "doctrine/annotations": ">=1.2"
   },
   "autoload": {
     "psr-0": { "Guzzle\\ConfigOperationsBundle": "" }

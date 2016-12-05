@@ -23,15 +23,15 @@ class ClientCompilerPass implements CompilerPassInterface
             'guzzle.client'
         );
 
-        $definitions = array();
+        $definitions = [];
         foreach ($taggedServices as $id => $tags) {
             foreach ($tags as $attributes) {
                 $definition = new Definition();
                 $definition->setClass('Guzzle\ConfigOperationsBundle\GuzzleClient');
-                $definition->setFactory(array(
+                $definition->setFactory([
                     new Reference('guzzle_config_operations.factory'),
                     'getClient'
-                ));
+                ]);
                 $definition->addArgument($id);
                 $definitions['guzzle_client.' . $attributes['alias']] = $definition;
             }
