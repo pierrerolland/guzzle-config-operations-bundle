@@ -24,6 +24,6 @@
   },
   "target-dir": "Guzzle/ConfigOperationsBundle",
   "require-dev": {
-    "phpspec/phpspec": "3.0"
+    "phpspec/phpspec": ">=2.5.5"
   }
 }
