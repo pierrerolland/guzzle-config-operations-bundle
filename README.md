@@ -1,5 +1,6 @@
 # guzzle-config-operations-bundle
 [![Build Status](https://travis-ci.org/pierrerolland/guzzle-config-operations-bundle.svg?branch=master)](https://travis-ci.org/pierrerolland/guzzle-config-operations-bundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pierrerolland/guzzle-config-operations-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pierrerolland/guzzle-config-operations-bundle/?branch=master)
 
 This bundle allows Symfony projects to add Guzzle operations to their configuration. It also uses Symfony's serializer to directly deserialize responses into objects. All you have to do is define your calls in Yaml, and your model classes to welcome the responses, and you're done !
 
