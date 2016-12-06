@@ -1,0 +1,4 @@
+suites:
+    guzzle_config_operations_bundle_suite:
+        namespace: Guzzle\ConfigOperationsBundle
+        psr4_prefix: Guzzle\ConfigOperationsBundle

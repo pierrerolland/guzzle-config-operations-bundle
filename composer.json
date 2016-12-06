@@ -14,10 +14,16 @@
     "php": ">=5.4.0",
     "symfony/framework-bundle": ">=2.7",
     "guzzlehttp/guzzle-services": ">=1.0",
-    "doctrine/annotations": ">=1.2"
+    "doctrine/annotations": ">=1.2",
+    "symfony/property-access": "^3.2",
+    "symfony/property-info": "^3.2",
+    "symfony/serializer": "^3.2"
   },
   "autoload": {
     "psr-0": { "Guzzle\\ConfigOperationsBundle": "" }
   },
-  "target-dir": "Guzzle/ConfigOperationsBundle"
+  "target-dir": "Guzzle/ConfigOperationsBundle",
+  "require-dev": {
+    "phpspec/phpspec": "3.0"
+  }
 }

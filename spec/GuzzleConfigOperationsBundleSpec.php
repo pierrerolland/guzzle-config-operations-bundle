@@ -1,0 +1,24 @@
+<?php
+
+namespace spec\Guzzle\ConfigOperationsBundle;
+
+use Guzzle\ConfigOperationsBundle\DependencyInjection\CompilerPass\ClientCompilerPass;
+use Guzzle\ConfigOperationsBundle\GuzzleConfigOperationsBundle;
+use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+class GuzzleConfigOperationsBundleSpec extends ObjectBehavior
+{
+    function it_is_initializable()
+    {
+        $this->shouldHaveType(GuzzleConfigOperationsBundle::class);
+    }
+
+    function its_build_should_add_compiler_pass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(Argument::type(ClientCompilerPass::class))->shouldBeCalled();
+
+        $this->build($container);
+    }
+}
