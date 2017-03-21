@@ -79,12 +79,10 @@ class GuzzleClient extends BaseGuzzleClient
      */
     public function transformResponse(ResponseInterface $response, RequestInterface $request, CommandInterface $command)
     {
-        return $this
+        $body = $response->getBody()->getContents();
+
+        return empty($body) ?: $this
             ->serializer
-            ->deserialize(
-                $response->getBody()->getContents(),
-                $this->getResponseClass($command->getName()),
-                'json'
-            );
+            ->deserialize($body, $this->getResponseClass($command->getName()), 'json');
     }
 }
