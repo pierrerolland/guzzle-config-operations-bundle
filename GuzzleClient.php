@@ -6,7 +6,6 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Guzzle\DescriptionInterface;
 use GuzzleHttp\Command\Guzzle\GuzzleClient as BaseGuzzleClient;
-use JMS\Serializer\SerializerInterface as JMSSerializerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,7 +28,7 @@ class GuzzleClient extends BaseGuzzleClient
     protected $client;
 
     /**
-     * @var SerializerInterface|JMSSerializerInterface
+     * @var SerializerInterface|\JMS\Serializer\SerializerInterface
      */
     protected $serializer;
 
@@ -37,7 +36,7 @@ class GuzzleClient extends BaseGuzzleClient
      * @param ClientInterface $client
      * @param DescriptionInterface $description
      * @param array $responseClasses
-     * @param SerializerInterface|JMSSerializerInterface $serializer
+     * @param SerializerInterface|\JMS\Serializer\SerializerInterface $serializer
      * @param array $config
      */
     public function __construct(
