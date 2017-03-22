@@ -1,0 +1,7 @@
+services:
+    guzzle_config_operations.normalizer.recursive_object:
+        class: Guzzle\ConfigOperationsBundle\Normalizer\RecursiveObjectNormalizer
+        parent: serializer.normalizer.object
+        public: false
+        tags:
+            - { name: serializer.normalizer }

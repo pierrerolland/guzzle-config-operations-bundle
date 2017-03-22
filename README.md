@@ -25,8 +25,13 @@ class AppKernel extends Kernel
 Activate Symfony serializer in app/config.yml
 ```yaml
 framework:
-    serializer:      { enable_annotations: true }
+    serializer: ~
 ```
+
+or JMSSerializer
+
+https://github.com/schmittjoh/JMSSerializerBundle
+http://jmsyst.com/bundles/JMSSerializerBundle
 
 ## Usage
 
