@@ -82,8 +82,14 @@ class GuzzleClient extends BaseGuzzleClient
     {
         $body = $response->getBody()->getContents();
 
-        return empty($body) ?: $this
+        if (empty($body)) {
+            return null;
+        }
+
+        $responseClass = $this->getResponseClass($command->getName());
+
+        return $responseClass === 'array' ? json_decode($body, true) : $this
             ->serializer
-            ->deserialize($body, $this->getResponseClass($command->getName()), 'json');
+            ->deserialize($body, $responseClass, 'json');
     }
 }
