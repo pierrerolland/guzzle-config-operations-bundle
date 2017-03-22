@@ -47,6 +47,7 @@ class SymfonyCompilerPassSpec extends ObjectBehavior
             'guzzle_config_operations.normalizer.recursive_object',
             Argument::type(Definition::class)
         )->shouldNotBeCalled();
+
         $this->process($container);
     }
 
@@ -60,7 +61,7 @@ class SymfonyCompilerPassSpec extends ObjectBehavior
             'guzzle_config_operations.normalizer.recursive_object',
             Argument::type(Definition::class)
         )->shouldNotBeCalled();
-        
+
         $this->process($container);
     }
 }
