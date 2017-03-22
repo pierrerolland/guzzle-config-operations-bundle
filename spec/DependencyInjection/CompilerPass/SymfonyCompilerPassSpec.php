@@ -3,7 +3,6 @@
 namespace spec\Guzzle\ConfigOperationsBundle\DependencyInjection\CompilerPass;
 
 use Guzzle\ConfigOperationsBundle\DependencyInjection\CompilerPass\SymfonyCompilerPass;
-use JMS\Serializer\Serializer as JMSSerializer;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Config\FileLocator;
@@ -55,7 +54,7 @@ class SymfonyCompilerPassSpec extends ObjectBehavior
     {
         $container->hasDefinition('serializer')->willReturn(false);
         $container->getDefinition('serializer')->willReturn($serializer);
-        $serializer->getClass()->willReturn(JMSSerializer::class);
+        $serializer->getClass()->willReturn('JMS\Serializer\Serializer');
 
         $container->setDefinition(
             'guzzle_config_operations.normalizer.recursive_object',
