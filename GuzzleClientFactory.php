@@ -4,7 +4,6 @@ namespace Guzzle\ConfigOperationsBundle;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\Guzzle\Description;
-use JMS\Serializer\SerializerInterface as JMSSerializerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -22,12 +21,12 @@ class GuzzleClientFactory implements ContainerAwareInterface
     protected $container;
 
     /**
-     * @var SerializerInterface|JMSSerializerInterface
+     * @var SerializerInterface|\JMS\Serializer\SerializerInterface
      */
     protected $serializer;
 
     /**
-     * @param SerializerInterface|JMSSerializerInterface $serializer
+     * @param SerializerInterface|\JMS\Serializer\SerializerInterface $serializer
      */
     public function __construct($serializer)
     {
