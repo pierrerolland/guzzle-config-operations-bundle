@@ -24,7 +24,7 @@
   "require-dev": {
     "phpspec/phpspec": ">=2.5.5",
     "symfony/property-info": "^2.8",
-    "symfony/serializer": "3.1.*"
+    "symfony/serializer": ">=3.1.0"
   },
   "suggest": {
     "symfony/serializer": ">=3.1"
