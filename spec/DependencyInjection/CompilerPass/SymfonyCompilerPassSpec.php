@@ -24,16 +24,13 @@ class SymfonyCompilerPassSpec extends ObjectBehavior
         $this->shouldHaveType(SymfonyCompilerPass::class);
     }
 
-    function its_process(ContainerBuilder $container, Definition $serializer)
+    function its_process(ContainerBuilder $container, Definition $serializer, Loader\YamlFileLoader $loader)
     {
+        $this->setFileLoader($loader);
         $container->hasDefinition('serializer')->willReturn(true);
         $container->getDefinition('serializer')->willReturn($serializer);
         $serializer->getClass()->willReturn(Serializer::class);
-        $container->addResource(Argument::any())->shouldBeCalled();
-        $container->setDefinition(
-            'guzzle_config_operations.normalizer.recursive_object',
-            Argument::type(Definition::class)
-        )->shouldBeCalled();
+        $loader->load('symfony_normalizer.yml')->shouldBeCalled();
 
         $this->process($container);
     }
