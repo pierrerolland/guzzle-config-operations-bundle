@@ -15,7 +15,7 @@
     "symfony/framework-bundle": ">=2.7",
     "guzzlehttp/guzzle-services": ">=1.0",
     "doctrine/annotations": ">=1.2",
-    "symfony/property-access": "^2.7"
+    "symfony/property-access": ">=2.7"
   },
   "autoload": {
     "psr-0": { "Guzzle\\ConfigOperationsBundle": "" }
