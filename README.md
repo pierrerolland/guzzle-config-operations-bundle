@@ -8,7 +8,7 @@ This bundle allows Symfony projects to add Guzzle operations to their configurat
 ## Installation
 `composer require pierrerolland/guzzle-config-operations-bundle`
 
-In your app/AppKernel.php
+In your app/AppKernel.php if you're using Symfony 2/3
 ```php
 class AppKernel extends Kernel
 {
@@ -21,6 +21,17 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
+```
+
+In `config/bundles.php` with Symfony 4
+```php
+<?php
+
+return [
+    // ...
+    Guzzle\ConfigOperationsBundle\GuzzleConfigOperationsBundle::class => ['all' => true],
+];
+
 ```
 
 Activate Symfony serializer in app/config.yml
@@ -47,7 +58,7 @@ services:
         tags:
             - { name: guzzle.client, alias: foo }
         arguments:
-            config:
+            $config:
                 baseUrl: "http://foo"
                 operations:
                     readBar:
