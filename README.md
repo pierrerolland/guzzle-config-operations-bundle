@@ -75,9 +75,20 @@ services:
 ```
 The tag line is important, and requires both the `name: guzzle.client` and `alias` parts.
 
-#### Client configuration
+### 2. Use the client
 
-##### Operation
+A new service will appear, called guzzle_client.[the alias you used]. You can call the operations directly.
+
+```php
+   // @var AppBundle\Model\Bar $bar
+   $bar = $this->get('guzzle_client.foo')->readBar(['barId' => 1]);
+```
+
+## Client configuration
+
+This documentation is extracted from the Guzzle Services package.
+
+#### Operation
 
 | Property | Description | Type |
 | -------- | ----------- | ---- |
@@ -95,7 +106,7 @@ The tag line is important, and requires both the `name: guzzle.client` and `alia
 
 *From https://github.com/guzzle/guzzle-services/blob/master/src/Operation.php#L23*
 
-##### Parameter
+#### Parameter
 
 | Property | Description | Type | Possible values |
 | -------- | ----------- | ---- | --------------- |
@@ -122,15 +133,6 @@ The tag line is important, and requires both the `name: guzzle.client` and `alia
 | format | Format used to coax a value into the correct format when serializing or unserializing. You may specify either an array of filters OR a format, but not both. | string | date-time, date, time, timestamp, date-time-http, boolean-string |
 
 *From https://github.com/guzzle/guzzle-services/blob/master/src/Parameter.php#L84*
-
-### 2. Use the client
-
-A new service will appear, called guzzle_client.[the alias you used]. You can call the operations directly.
-
-```php
-   // @var AppBundle\Model\Bar $bar
-   $bar = $this->get('guzzle_client.foo')->readBar(['barId' => 1]);
-```
 
 ## Objects normalization
 
