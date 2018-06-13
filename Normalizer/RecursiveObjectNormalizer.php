@@ -30,10 +30,11 @@ class RecursiveObjectNormalizer extends ObjectNormalizer
         $class,
         array &$context,
         \ReflectionClass $reflectionClass,
-        $allowedAttributes
+        $allowedAttributes,
+        string $format = null
     ) {
         $this->reflectionClasses[$class] = $reflectionClass;
-        return parent::instantiateObject($data, $class, $context, $reflectionClass, $allowedAttributes);
+        return parent::instantiateObject($data, $class, $context, $reflectionClass, $allowedAttributes, $format);
     }
 
     /**
@@ -51,15 +52,7 @@ class RecursiveObjectNormalizer extends ObjectNormalizer
         }
     }
 
-    /**
-     * @param Type $type
-     * @param mixed $value
-     * @param string $format
-     * @param array $context
-     *
-     * @return array|object
-     */
-    protected function getDenormalizedValue(Type $type, $value, $format, $context)
+    protected function getDenormalizedValue(Type $type, $value, ?string $format, array $context)
     {
         if (substr($type->name, -2) === '[]' && is_array($value)) {
             $denormalized = [];
@@ -74,13 +67,7 @@ class RecursiveObjectNormalizer extends ObjectNormalizer
         return $this->denormalize($value, $type->name, $format, $context);
     }
 
-    /**
-     * @param object $object
-     * @param string $attribute
-     *
-     * @return null|Type
-     */
-    protected function getTypeAnnotation($object, $attribute)
+    protected function getTypeAnnotation($object, string $attribute): ?Type
     {
         return $this->getAnnotationReader()->getPropertyAnnotation(
             $this->reflectionClasses[get_class($object)]->getProperty($attribute),
@@ -88,21 +75,12 @@ class RecursiveObjectNormalizer extends ObjectNormalizer
         );
     }
 
-    /**
-     * @param object $object
-     * @param string $attribute
-     *
-     * @return bool
-     */
-    protected function hasProperty($object, $attribute)
+    protected function hasProperty($object, string $attribute): bool
     {
         return $this->reflectionClasses[get_class($object)]->hasProperty($attribute);
     }
 
-    /**
-     * @return AnnotationReader
-     */
-    public function getAnnotationReader()
+    public function getAnnotationReader(): AnnotationReader
     {
         if (null === $this->annotationReader) {
             $this->annotationReader = new AnnotationReader();
@@ -111,10 +89,7 @@ class RecursiveObjectNormalizer extends ObjectNormalizer
         return $this->annotationReader;
     }
 
-    /**
-     * @param AnnotationReader $annotationReader
-     */
-    public function setAnnotationReader(AnnotationReader $annotationReader)
+    public function setAnnotationReader(AnnotationReader $annotationReader): void
     {
         $this->annotationReader = $annotationReader;
     }

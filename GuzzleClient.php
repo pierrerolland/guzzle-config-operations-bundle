@@ -60,12 +60,7 @@ class GuzzleClient extends BaseGuzzleClient
         );
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function getResponseClass($name)
+    protected function getResponseClass(string $name): string
     {
         return array_key_exists($name, $this->responseClasses) ? $this->responseClasses[$name] : 'array';
     }
