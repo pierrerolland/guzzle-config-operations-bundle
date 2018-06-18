@@ -41,4 +41,14 @@ class GuzzleClientSpec extends ObjectBehavior
 
         $this->transformResponse($response, $request, $command)->shouldReturn('final');
     }
+
+    function its_transform_response_does_not_deserialize_if_no_response_class(
+        ResponseInterface $response,
+        RequestInterface $request,
+        CommandInterface $command
+    ) {
+        $command->getName()->willReturn('no_response_class');
+
+        $this->transformResponse($response, $request, $command)->shouldReturn($response);
+    }
 }
