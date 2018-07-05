@@ -17,6 +17,9 @@ class ClientCompilerPassSpec extends ObjectBehavior
 
     function its_process_should_add_definitions(ContainerBuilder $container)
     {
+        $container->has('guzzle_client.1')->willReturn(false);
+        $container->has('guzzle_client.2')->willReturn(true);
+
         $container
             ->findTaggedServiceIds('guzzle.client')
             ->willReturn([
@@ -33,7 +36,7 @@ class ClientCompilerPassSpec extends ObjectBehavior
             ->addDefinitions(Argument::allOf(
                 Argument::type('array'),
                 Argument::containing(Argument::type(Definition::class)),
-                Argument::size(2)
+                Argument::size(1)
             ))
             ->shouldBeCalled();
 
