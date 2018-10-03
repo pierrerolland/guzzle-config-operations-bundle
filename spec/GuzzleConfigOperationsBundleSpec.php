@@ -7,6 +7,7 @@ use Guzzle\ConfigOperationsBundle\DependencyInjection\CompilerPass\SymfonyCompil
 use Guzzle\ConfigOperationsBundle\GuzzleConfigOperationsBundle;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class GuzzleConfigOperationsBundleSpec extends ObjectBehavior
@@ -19,7 +20,9 @@ class GuzzleConfigOperationsBundleSpec extends ObjectBehavior
     function its_build_should_add_compiler_pass(ContainerBuilder $container)
     {
         $container->addCompilerPass(Argument::type(ClientCompilerPass::class))->shouldBeCalled();
-        $container->addCompilerPass(Argument::type(SymfonyCompilerPass::class))->shouldBeCalled();
+        $container
+            ->addCompilerPass(Argument::type(SymfonyCompilerPass::class), PassConfig::TYPE_BEFORE_OPTIMIZATION, 30)
+            ->shouldBeCalled();
 
         $this->build($container);
     }
