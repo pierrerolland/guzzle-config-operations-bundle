@@ -34,6 +34,7 @@ class ClientCompilerPass implements CompilerPassInterface
                         new Reference('guzzle_config_operations.factory'),
                         'getClient'
                     ]);
+                    $definition->setPublic(true);
                     $definition->addArgument($id);
                     $definitions[$definitionId] = $definition;
                 }
