@@ -33,14 +33,7 @@ class GuzzleClientFactory implements ContainerAwareInterface
         $this->serializer = $serializer;
     }
 
-    /**
-     * Gets the client
-     *
-     * @param string $clientId
-     *
-     * @return GuzzleClient
-     */
-    public function getClient($clientId)
+    public function getClient(string $clientId): GuzzleClient
     {
         /* @var Client $client */
         $client = $this->container->get($clientId);
@@ -51,12 +44,7 @@ class GuzzleClientFactory implements ContainerAwareInterface
         return new GuzzleClient($client, $description, $responseClasses, $this->serializer);
     }
 
-    /**
-     * @param array $config
-     *
-     * @return array
-     */
-    protected function extractResponseClasses(array &$config)
+    protected function extractResponseClasses(array &$config): array
     {
         if (!array_key_exists('operations', $config)) {
             return [];
@@ -76,7 +64,7 @@ class GuzzleClientFactory implements ContainerAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(ContainerInterface $container = null): void
     {
         $this->container = $container;
     }

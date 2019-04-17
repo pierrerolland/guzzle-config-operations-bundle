@@ -46,9 +46,9 @@ class RecursiveObjectNormalizerSpec extends ObjectBehavior
         $tagsType->name = Tag::class . '[]';
         $categoryType->name = Category::class;
         /* @var NameConverterInterface $nameConverter*/
-        $nameConverter->denormalize('category')->willReturn('category');
-        $nameConverter->denormalize('tags')->willReturn('tags');
-        $nameConverter->denormalize('name')->willReturn('name');
+        $nameConverter->denormalize('category', Argument::cetera())->willReturn('category');
+        $nameConverter->denormalize('tags', Argument::cetera())->willReturn('tags');
+        $nameConverter->denormalize('name', Argument::cetera())->willReturn('name');
         $nameConverter->denormalize(0)->willReturn(0);
         $nameConverter->denormalize(1)->willReturn(1);
         /* @var AnnotationReader $annotationReader */

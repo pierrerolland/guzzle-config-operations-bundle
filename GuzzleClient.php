@@ -60,14 +60,9 @@ class GuzzleClient extends BaseGuzzleClient
         );
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function getResponseClass($name)
+    protected function getResponseClass(string $name): ?string
     {
-        return array_key_exists($name, $this->responseClasses) ? $this->responseClasses[$name] : 'array';
+        return array_key_exists($name, $this->responseClasses) ? $this->responseClasses[$name] : null;
     }
 
     /**
@@ -75,17 +70,21 @@ class GuzzleClient extends BaseGuzzleClient
      * @param RequestInterface $request
      * @param CommandInterface $command
      *
-     * @return mixed
+     * @return ResponseInterface|object|array
      */
     public function transformResponse(ResponseInterface $response, RequestInterface $request, CommandInterface $command)
     {
+        $responseClass = $this->getResponseClass($command->getName());
+
+        if (null === $responseClass) {
+            return $response;
+        }
+
         $body = $response->getBody()->getContents();
 
         if (empty($body)) {
             return null;
         }
-
-        $responseClass = $this->getResponseClass($command->getName());
 
         return $responseClass === 'array' ? json_decode($body, true) : $this
             ->serializer

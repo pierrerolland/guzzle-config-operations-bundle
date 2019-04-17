@@ -11,11 +11,11 @@
     }
   ],
   "require": {
-    "php": ">=5.5",
-    "symfony/framework-bundle": ">=2.7",
+    "php": ">=7.1",
+    "symfony/framework-bundle": "~4.0",
     "guzzlehttp/guzzle-services": ">=1.0",
     "doctrine/annotations": ">=1.2",
-    "symfony/property-access": ">=2.7"
+    "symfony/property-access": "~4.0"
   },
   "autoload": {
     "psr-0": { "Guzzle\\ConfigOperationsBundle": "" }
@@ -23,10 +23,10 @@
   "target-dir": "Guzzle/ConfigOperationsBundle",
   "require-dev": {
     "phpspec/phpspec": ">=2.5.5",
-    "symfony/property-info": ">=2.8",
-    "symfony/serializer": "<=3.4.10"
+    "symfony/property-info": "~4.0",
+    "symfony/serializer": "~4.0"
   },
   "suggest": {
-    "symfony/serializer": ">=3.1"
+    "symfony/serializer": "~4.0"
   }
 }
